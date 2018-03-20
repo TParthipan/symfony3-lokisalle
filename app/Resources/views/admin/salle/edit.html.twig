@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <h1>Edition de salle</h1>
+    {{form_start(form)}} 
+    {{form_row(form.titre)}}
+    {{form_row(form.capacite)}}
+    {{form_row(form.categorie)}}
+    {{form_row(form.description)}}
+    {{form_row(form.adresse)}}
+    {{form_row(form.ville)}}
+    {{form_row(form.cp)}} 
+    {{form_row(form.pays)}}
+    {{form_row(form.photo)}}
+    {# form.vars.value = l'tentité liéé au formulaire(l'entité article #}
+    {% if form.vars.value.photo is not null %}
+        <p>
+            Actuellement: 
+            <img src="{{asset('upload/'~form.vars.value.photo.filename)}}" width="200px">
+            {{ form_row(form.remove_photo) }}  
+        </p>
+    {% endif %}
+    <div class="form-btn-group pull-right">
+        <button type="submit" class="btn btn-primary">Valider</button>
+        <a href="{{path('app_admin_salle_list')}}" class="btn btn-default">Annuler</a>
+    </div>
+    {{form_end(form)}}
+{% endblock %}

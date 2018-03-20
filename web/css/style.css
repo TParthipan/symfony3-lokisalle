@@ -1,0 +1,37 @@
+.navbar-inverse{
+    margin-bottom: 0;
+}
+th{
+    background-color: #222;
+    color:snow;
+}
+.article{
+    display: inline-flex ;
+    flex-wrap:wrap;
+    align-items: flex-start;
+    align-content:center;  
+
+}
+.well{
+    width: 250px;
+    height: auto;
+    margin-left: 10px;
+    /*margin: auto;*/
+
+}
+.well img{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    display: block;
+
+}
+.recherche{
+    margin-right: 15px;
+}
+.reserve{
+    background-color: red
+}
+.center{
+    text-align: center
+}

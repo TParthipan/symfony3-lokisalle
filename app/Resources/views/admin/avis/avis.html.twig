@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Commentaire pour la salle "{{salle.titre}}"</h1>
+    <a href="{{path('app_admin_salle_list')}}">Retour à la liste</a>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Contenu</th>
+            <th>Note</th>
+            <th width="200px"></th>
+        </tr>
+
+        {% for comment in salle.avis %}
+            <tr>
+                <td>{{comment.id}}</td>
+                <td>{{comment.commentaire}}</td>
+                <td>{{comment.note}}</td>
+                <td>
+                    <a href="{{path('app_admin_avis_delete', {"id": comment.id})}}" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        {%else%}
+            <tr>
+                <td colspan="3" align="center">Aucun commentaire</td>
+                
+            </tr>
+        {%endfor %}
+    </table>
+{% endblock %}
+
+
+

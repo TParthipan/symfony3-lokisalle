@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <h1>Gestion des commandes</h1>     
+    <table class="table" class="thead-dark">
+        <tr>
+            <th>Id Commande</th>
+            <th>Id Membre</th>
+            <th>Id Produit</th>
+            <th>Prix</th>
+            <th>Date d' enregistrement</th>
+            <th width="200px"></th>
+        </tr>
+
+        {% for commande in commandes %}
+            <tr>
+                <td>{{commande.id}}</td>
+                <td>{{commande.membre.id}}<br>{{commande.membre.email}}</td>
+                <td>{{commande.produit.id}} - {{commande.produit.salle.titre}}<br>{{commande.produit.dateArrivee|date('Y-m-d')}} au {{commande.produit.dateDepart|date('Y-m-d')}}</td>
+                <td>{{commande.produit.prix}}</td>
+                <td>{{commande.dateEnregistrement|date('Y-m-d')}}</td>
+
+                <td>
+                    <a href="{{path('app_admin_commande_register', {"id": commande.id})}}" class="btn btn-primary">Modifier</a>
+                    <a href="{{path('app_admin_commande_delete', {"id": commande.id})}}" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun résultat</td>
+            </tr>
+        {%endfor%}
+    </table>
+    <h2>Ajouter une commande</h2>    
+    {{form_start(form)}} 
+    {{form_row(form.produit)}}
+    {{form_row(form.membre)}}
+
+    <div class="form-btn-group pull-right">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    {{form_end(form)}}
+{% endblock %}

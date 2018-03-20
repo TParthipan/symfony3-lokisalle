@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <h1>Inscription</h1>
+
+    {{form_start(form)}} 
+    {{form_row(form.civilite)}}
+    {{form_row(form.nom)}}
+    {{form_row(form.prenom)}}
+    {{form_row(form.email)}}
+    {{form_row(form.pseudo)}}
+    {{form_row(form.mdpclair)}}
+    <div class="form-btn-group pull-right">
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+    {{form_end(form)}}
+{% endblock %}

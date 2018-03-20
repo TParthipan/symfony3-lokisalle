@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Accueil</h1>
+    <h2>Les Produit</h2>
+    {#{% if annonces is null %}
+        <p class="alert-danger">Aucun produit correspond à votre recherche<p>
+    {% endif %}#}
+    {#    {{dump(annonces)}}#}
+    <div class="article" >
+          <div class="recherche">
+      {#  <h3>Recherche</h3>#}
+        {{ form_start(form) }} {# ouvre la balise form #}
+        {{ form_row(form.categorie) }}
+        {{ form_row(form.ville) }}
+        {{ form_row(form.capacite) }}
+        {{ form_row(form.prix) }}
+        {{ form_row(form.dateD) }}
+        {{ form_row(form.dateA) }}
+
+
+
+        <div class="form-btn-group pull-right">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+        {{ form_end(form)}} {# ferme la balise form #}
+    </div>
+        {% if annonces == [] %}
+            <p class="alert-danger">Aucun produit correspond à votre recherche<p>
+            {% endif %}
+            {% for annonce in annonces %}
+            <article class="well">
+                {% if annonce.salle.photo is null  %}
+                    <p class="center">Photo vide</p>
+                {% else %}
+                    <img src="{{asset('upload/'~annonce.salle.photo)}}">
+                {%endif%}
+                <h3><a href="{{path('app_produit_display',{"id": annonce.id})}}">{{annonce.salle.titre}} Prix: {{annonce.prix}}€</a></h3>
+                <p><strong>{{annonce.salle.description}}</strong></p>
+                <p><strong>{{annonce.dateArrivee|date('d-m-Y')}} au {{annonce.dateDepart|date('d-m-Y')}}</strong></p>
+            </article>
+            {% if not loop.last %}
+                {#            <hr>#}
+            {%endif%}
+
+        {% endfor %}
+
+      </div>
+{% endblock %}

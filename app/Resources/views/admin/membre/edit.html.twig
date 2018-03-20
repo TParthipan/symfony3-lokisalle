@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <h1>Gestion des utilisateur</h1>
+    <a href="{{path('app_admin_security_register')}}">Vider le formulaire pour ajouter un nouveau membre</a>
+    <table class="table" class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Civilite</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Pseudo</th>
+            <th width="200px"></th>
+        </tr>
+        
+    {% for membre in membres %}
+        <tr>
+                <td>{{membre.id}}</td>
+                <td>{{membre.civilite}}</td>
+                <td>{{membre.nom}}</td>
+                <td>{{membre.prenom}}</td>
+                <td>{{membre.email}}</td>
+                <td>{{membre.pseudo}}</td>
+                <td>
+                    <a href="{{path('app_admin_security_register', {"id": membre.id})}}" class="btn btn-primary">Modifier</a>
+                     {% if membre.hasCommande is empty %}
+                    <a href="{{path('app_admin_security_delete', {"id": membre.id})}}" class="btn btn-danger">Supprimer</a>
+                    {%endif%}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun résultat</td>
+            </tr>
+        {%endfor%}
+    </table>
+    
+    <h2>Ajouter un membre</h2>
+            
+    {{form_start(form)}} 
+    {{form_row(form.civilite)}}
+    {{form_row(form.nom)}}
+    {{form_row(form.prenom)}}
+    {{form_row(form.email)}}
+    {{form_row(form.pseudo)}}
+    {{form_row(form.mdpclair)}}
+    <div class="form-btn-group pull-right">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    {{form_end(form)}}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Votre profil</h1>
+    {{form_start(form)}} 
+    {{form_row(form.civilite)}}
+    {{form_row(form.nom)}}
+    {{form_row(form.prenom)}}
+    {{form_row(form.email)}}
+    {{form_row(form.pseudo)}}
+    {{form_row(form.mdpclair)}}
+    <div class="form-btn-group pull-right">
+        <button type="submit" class="btn btn-primary">Valider</button>
+       {# <a href="{{path('app_security_category_list')}}" class="btn btn-default">Annuler</a>#}
+    </div>
+    {{form_end(form)}}
+    <h2>Mes commande</h2>
+    <table class="table" class="thead-dark">
+        <tr>
+            <th>Id Commande</th>
+            <th>Date de la commande</th>
+            <th>Salle</th>
+            <th>Date arrivée</th>
+            <th>Date depart</th>
+            <th>Tarif</th>
+            <th width="200px"></th>
+        </tr>
+        
+    {% for commande in commandes %}
+        <tr>
+                <td>{{commande.id}}</td>
+                <td>{{commande.dateEnregistrement|date('d-m-Y')}}</td>
+                <td> <a href="{{path('app_produit_display',{"id": commande.produit.id})}}">{{commande.produit.salle.titre}}</a></td>
+                <td>{{commande.produit.dateArrivee|date('d-m-Y')}}</td>
+                <td>{{commande.produit.dateDepart|date('d-m-Y')}}</td>
+                <td>{{commande.produit.prix}}</td>
+                <td>
+                    <a href="{{path('app_security_delete', {"id": commande.id})}}" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun résultat</td>
+            </tr>
+        {%endfor%}
+    </table>
+{% endblock %}
+

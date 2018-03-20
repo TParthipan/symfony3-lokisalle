@@ -1,0 +1,74 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Gestion des salles</h1>
+    <table class="table" class="thead-dark">
+        <tr>
+            <th class="thead-dark">ID</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Adresse</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Code Postal</th>
+            <th>Capacité</th>
+            <th>Catégorie</th>
+            <th>Photo</th>
+            <th>Commentaires</th>
+            <th width="200px"></th>
+        </tr>
+        {% for salle in salles %}
+
+            <tr>
+                <td>{{salle.id}}</td>
+                {# la class Category contient une méthode __toString() #}
+                <td>{{salle.titre}}</td>
+                <td>{{salle.description}}</td>
+                <td>{{salle.adresse}}</td>
+                <td>{{salle.ville}}</td>
+                <td>{{salle.pays}}</td>
+                <td>{{salle.cp}}</td>
+                <td>{{salle.capacite}}</td>
+                <td>{{salle.categorie}}</td>
+                <td>
+                    {% if salle.photo is not null%}
+                        <img src="{{asset('upload/'~salle.photo)}}" width="50px">
+                    {% else %}
+                        <p>Pas d'image</p>
+                    {% endif %}
+                </td>
+                <td><a href="{{path('app_admin_avis_list',{"id": salle.id})}}">
+                        {{salle.avis|length}}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{path('app_admin_salle_edit', {"id": salle.id})}}" class="btn btn-primary">Modifier</a>
+                    
+                    {% if salle.hasProduit is empty %}
+                            <a href="{{path('app_admin_salle_delete', {"id": salle.id})}}" class="btn btn-danger">Supprimer</a>
+                        {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun résultat</td>
+            </tr>
+        {%endfor%}
+
+    </table>
+    <hr>
+    {{form_start(form)}} 
+    {{form_row(form.titre)}}
+    {{form_row(form.capacite)}}
+    {{form_row(form.categorie)}}
+    {{form_row(form.description)}}
+    {{form_row(form.adresse)}}
+    {{form_row(form.ville)}}
+    {{form_row(form.cp)}} 
+    {{form_row(form.pays)}}
+    {{form_row(form.photo)}}
+    <div class="form-btn-group pull-right">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    {{form_end(form)}}
+{% endblock %}
