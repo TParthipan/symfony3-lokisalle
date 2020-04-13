@@ -1,16 +1,7 @@
-pipeline {
-    agent any
+stage('Build') {
+    node {
+        echo 'Pulling...' + env.BRANCH_NAME
+        checkout scm
 
-    environment {
-        DISABLE_AUTH = 'true'
-        DB_ENGINE    = 'sqlite'
-    }
-
-    stages {
-        stage('Build') {
-            steps {
-                sh 'printenv'
-            }
-        }
     }
 }
