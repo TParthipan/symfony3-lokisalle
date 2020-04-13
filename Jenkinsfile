@@ -1,12 +1,16 @@
-node{
-    stage('checkout'){
-        deleteDir()
-        checkout scm
+pipeline {
+    agent any
+
+    environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
     }
-    stage('stage 2bis'){
-        sh 'ls -ls'
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'printenv'
+            }
+        }
     }
-    stage('stage 2bis'){
-        sh 'printenv'
-    }
-}     
+}
